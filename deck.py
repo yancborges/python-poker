@@ -9,6 +9,7 @@ class deck:
     def __init__(self):
         self.deck_list = self.load_deck()
         self.deck_copy = deepcopy(self.deck_list)
+        self.size = len(self.deck_list)
 
 
     def __str__(self):
@@ -35,8 +36,13 @@ class deck:
 
     def draw(self, number):
 
+        if len(self.deck_list) < number:
+            raise ValueError('Erro, numero de cartas insuficiente')
+        
         drew = self.deck_list[:number]
         del self.deck_list[:number]
+
+        self.size = len(self.deck_list)
 
         return drew
 
