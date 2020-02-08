@@ -1,3 +1,5 @@
+
+
 def higher_from_cards(hand_info, card_list):
 
     labels = hand_info['label_count']
@@ -182,3 +184,25 @@ def get_card_list():
 
     return mounted_deck
 
+
+def compare_games(table_players):
+
+    _sorted = []
+    count = 0
+    while count < len(table_players):
+        winner_index = count
+        winner_obj = table_players[winner_index]
+        winner_hand = winner_obj.hand
+        for plr in table_players[count:]:
+            h = plr.hand
+            if h.game_value >= winner_hand.game_value:
+                winner_index = table_players.index(plr)
+                winner_obj = plr
+                winner_hand = winner_obj.hand
+
+        _sorted.append(winner_obj)
+        count = len(_sorted)
+
+    return _sorted
+
+        
