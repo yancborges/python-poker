@@ -6,6 +6,7 @@ class hand:
     def __init__(self, cards):
 
         self.cards = cards
+        self.sort()
         self.labels, self.labels_list, self.suits, self.suits_list = self.hand_values()
         self.hand_info = {
             'label_count': self.labels, 
@@ -58,4 +59,22 @@ class hand:
 
         return labels, labels_list, suits, suits_list
 
+
+    def sort(self):
+
+        count = 0
+        lower_index = 0
+
+        while count < len(self.cards):
+            lower_index = count
+            low_card = self.cards[lower_index]
+            for card in self.cards[count:]:
+                if card.value < low_card.value:
+                    lower_index = self.cards.index(card)
+                    low_card = self.cards[lower_index]
+            
+            dummy = low_card 
+            self.cards[lower_index] = self.cards[count]
+            self.cards[count] = dummy
+            count += 1
         

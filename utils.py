@@ -6,15 +6,12 @@ def higher_from_cards(hand_info, card_list):
     label_list = hand_info['labels']
     suits = hand_info['suit_count']
     suit_list = hand_info['suits']
-
-    label_list.sort()
-    suit_list.sort()
     
     first_suit = suit_list[0]
 
     def royal_street_flush():
         game_value = 10
-        if not suit_list == [first_suit] * 5:
+        if not suit_list == [first_suit]:
             return False, [], game_value
 
         if not label_list == ['10', 'J', 'Q', 'K', 'A']:
@@ -25,11 +22,13 @@ def higher_from_cards(hand_info, card_list):
     
     def street_flush():
         game_value = 9
+        if len(label_list) < 5:
+            return False, [], game_value
         for label in label_list[1:]:
-            if not get_label_value(label)[0] == get_label_value(label_list[label_list.index(label) - 1])[1]:
+            if not get_label_value(label)[1] == get_label_value(label_list[label_list.index(label) - 1])[0] + 1:
                 return False, [], game_value
         
-        if not suit_list == [first_suit] * 5:
+        if not suit_list == [first_suit]:
             return False, [], game_value
         
         return True, card_list, game_value
@@ -39,33 +38,39 @@ def higher_from_cards(hand_info, card_list):
         game_value = 8
         for key in labels:
             if labels[key]['count'] == 4:
-                return True, labels[key]['content']
+                return True, labels[key]['content'], game_value
         return False, [], game_value
     
 
     def full_house():
         game_value = 7
+        three = False
+        pair = False
         for key in labels:
-            if not labels[key]['count'] == 3:
-                return False, [], game_value
-            if not labels[key]['count'] == 2:
-                return False, [], game_value
+            if labels[key]['count'] == 3:
+                three = True
+            if labels[key]['count'] == 2:
+                pair = True
 
-        return True, card_list, game_value
+        if three and pair:
+            return True, card_list, game_value
+        return False, [], game_value
 
 
     def flush():
         game_value = 6
-        if suit_list == [first_suit] * 5:
+        if suit_list == [first_suit]:
             return True, card_list, game_value
         return False, [], game_value
 
 
     def straight():
         game_value = 5
+        if len(label_list) < 5:
+            return False, [], game_value
         for label in label_list[1:]:
             #if not get_label_value(label)[0] in get_label_value(label_list[label_list.index(label) - 1]) + 1:
-            if not get_label_value(label)[0] == get_label_value(label_list[label_list.index(label) - 1])[1]:
+            if not get_label_value(label)[1] == get_label_value(label_list[label_list.index(label) - 1])[0] + 1:
                 return False, [], game_value
         return True, card_list, game_value
 
@@ -144,7 +149,7 @@ def get_game_name(value):
 def get_label_value(label):
 
     _dict = {
-        'A': [1, 14],
+        'A': [14, 1],
         '2': [2, 2],
         '3': [3, 3],
         '4': [4, 4],
@@ -168,7 +173,7 @@ def get_card_list():
     # A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K
     # D(iamonds), S(pades), H(earts), C(lubs)
     
-    values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+    values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
     suits = ['Diamonds', 'Spades', 'Hearts', 'Clubs']
     mounted_deck = []
 
