@@ -2,14 +2,14 @@
 
 ## Code map:
 
-| File | Quick Description | Classes dependencies |
-| ------------------- | ------------------- |
-|  Card |  Card object | None   |
-| Deck | A list with each card | Card |
-|  Hand |  List of cards | Card |
-| Player | Info about person holding the cards | Hand |
-| Testing | Some auto-test code, with mocks for each game | None |
-| Main | File that runs the game with 5 players and tells who's the winner |
+| File      | Quick Description | Classes dependencies |
+| --------- | ----------------- | -------------------- |
+|  Card     |  Card object      | None                 |
+|  Deck     |  A list with each card | Card            |
+|  Hand     |  List of cards    | Card                 |
+|  Player   |  Info about person holding the cards | Hand |
+|  Testing  |  Some auto-test code, with mocks for each game | None |
+|  Main     |  File that runs the game with 5 players and tells who's the winner | None |
 
 
 ## Logic:
