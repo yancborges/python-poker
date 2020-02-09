@@ -10,6 +10,7 @@ class player:
             self.name = self.get_random_name()
         else:
             self.name = name
+        self.splitted = False
 
     
     def __str__(self):

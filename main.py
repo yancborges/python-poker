@@ -17,8 +17,28 @@ def start_game(players):
         print(plr, plr.hand.game_cards)
 
     table = compare_games(table)
+    
     winner = table[0]
-    print('\nWinner: {} - {} - {}'.format(winner.name, winner.hand.game_name, winner.hand.game_cards))
+    if winner.splitted:
+        winner_table = splitted_pot(table)
+        print('\nPot splitted!')
+        print('Winners:\n')
+        for plr in winner_table:
+            print('Player: {} - {} - {}'.format(plr.name, plr.hand.game_name, plr.hand.game_cards))    
+    else:
+        print('\nWinner: {} - {} - {}'.format(winner.name, winner.hand.game_name, winner.hand.game_cards))
+
+
+def splitted_pot(table):
+    winner_table = []
+    for plr in table:
+        if plr.splitted == True:
+            if plr not in winner_table:
+                winner_table.append(plr)
+        else:
+            break
+
+    return winner_table
 
 
 start_game(5)

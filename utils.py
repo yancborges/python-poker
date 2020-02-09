@@ -208,8 +208,13 @@ def compare_games(table_players):
                     winner_index = table_players.index(plr)
                     winner_obj = plr
                     winner_hand = winner_obj.hand
+
+                elif sum(h_values) == sum(w_values):
+                    if plr != winner_obj:
+                        plr.splitted = True
+                        winner_obj.splitted = True
             
-            if h.game_value > winner_hand.game_value:
+            elif h.game_value > winner_hand.game_value:
                 winner_index = table_players.index(plr)
                 winner_obj = plr
                 winner_hand = winner_obj.hand
@@ -218,10 +223,3 @@ def compare_games(table_players):
         count = len(_sorted)
 
     return _sorted
-
-
-def get_suit_rank(suit):
-
-    suits = {
-        
-    }
