@@ -200,7 +200,16 @@ def compare_games(table_players):
         winner_hand = winner_obj.hand
         for plr in table_players[count:]:
             h = plr.hand
-            if h.game_value >= winner_hand.game_value:
+            if h.game_value == winner_hand.game_value:
+                h_values = [get_label_value(h_card)[0] for h_card in h.game_labels_list]
+                w_values = [get_label_value(w_card)[0] for w_card in winner_hand.game_labels_list]
+
+                if sum(h_values) > sum(w_values):
+                    winner_index = table_players.index(plr)
+                    winner_obj = plr
+                    winner_hand = winner_obj.hand
+            
+            if h.game_value > winner_hand.game_value:
                 winner_index = table_players.index(plr)
                 winner_obj = plr
                 winner_hand = winner_obj.hand
@@ -210,4 +219,9 @@ def compare_games(table_players):
 
     return _sorted
 
+
+def get_suit_rank(suit):
+
+    suits = {
         
+    }

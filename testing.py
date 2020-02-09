@@ -141,6 +141,7 @@ def random_test():
         print('\n')
 
 cards_test()
+#random_test()
 
 """
 deck = deck()

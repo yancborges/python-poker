@@ -17,10 +17,18 @@ class hand:
         
         self.game_raw = higher_from_cards(self.hand_info, self.cards)
         self.game_value = self.game_raw[2]
+        self.game_cards_raw = self.game_raw[1]
         self.game_cards = [str(card) for card in self.game_raw[1]]
         self.game_name = get_game_name(self.game_raw[2])
         self.game = self.mount_game()
 
+        self.game_labels, self.game_labels_list, self.game_suits, self.game_suits_list = self.hand_values(self.game_cards_raw)
+        self.game_info = {
+            'label_count': self.game_labels,
+            'labels': self.game_labels_list,
+            'suit_count': self.game_suits,
+            'suits': self.game_suits
+        }
     
     def __str__(self):
         return str([str(card) for card in self.cards])
@@ -35,14 +43,17 @@ class hand:
         return '{} - {}'.format(self.game_name, self.game_cards)
 
 
-    def hand_values(self):
+    def hand_values(self, target_list=None):
 
         labels = {}
         labels_list = []
         suits = {}
         suits_list = []
 
-        for card in self.cards:
+        if not target_list:
+            target_list = self.cards
+
+        for card in target_list:
             if not labels.get(card.label):
                 labels[card.label] = {'count': 1, 'content': [card]}
                 labels_list.append(card.label)
