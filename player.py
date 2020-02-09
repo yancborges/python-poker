@@ -19,6 +19,15 @@ class player:
 
     def get_random_name(self):
 
+        # Names generated with http://listofrandomnames.com/
+        with open('names.txt', 'r') as file:
+            data = file.readlines()
+
+        return data[randint(0, len(data) - 1)].replace('\n', '')
+
+    
+    def get_random_name_old(self):
+
         ltr = 'qwertyuiopasdfghjklzxcvbnm'
         size = randint(0, 12) + 3
         name = ''

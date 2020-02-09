@@ -37,7 +37,7 @@ class deck:
     def draw(self, number):
 
         if len(self.deck_list) < number:
-            raise ValueError('Erro, numero de cartas insuficiente')
+            raise ValueError('Error, now enough cards left, use deck.restore() to play again')
         
         drew = self.deck_list[:number]
         del self.deck_list[:number]
